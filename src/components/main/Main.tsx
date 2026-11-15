@@ -13,18 +13,18 @@ const Main = () => {
                     </section>
                     <div className="flex justify-between items-center">
                         <span className="flex gap-4">
-                            <div className="flex gap-2 items-center">
+                            <span className="flex gap-2 items-center">
                                 <Cell index={-1} isAlive={true} />
                                 <span id="alive" className="text-text">
                                     Alive
                                 </span>
-                            </div>
-                            <div className="flex gap-2 items-center">
+                            </span>
+                            <span className="flex gap-2 items-center">
                                 <Cell index={-1} isAlive={false} />
                                 <span id="dead" className="text-text">
                                     Dead
                                 </span>
-                            </div>
+                            </span>
                         </span>
                         <span>Click or drag to draw</span>
                         <span>Resize Button Placeholder</span>

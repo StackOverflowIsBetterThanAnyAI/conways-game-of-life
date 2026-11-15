@@ -14,12 +14,12 @@ const Header = () => {
                             className="h-8 w-8"
                         />
                         <span className="flex flex-col">
-                            <div className="font-semibold text-xl text-text">
+                            <span className="font-semibold text-xl text-text">
                                 Conway&apos;s
-                            </div>
-                            <div className="text-base uppercase">
+                            </span>
+                            <span className="text-base uppercase">
                                 Game of Life
-                            </div>
+                            </span>
                         </span>
                     </h1>
                     <h2 className="text-base">
