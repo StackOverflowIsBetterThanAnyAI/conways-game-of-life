@@ -8,6 +8,7 @@
     --color-background: #0a100e;
     --color-background-light: #131f19;
     --color-border: #2b3d32;
+    --color-border-light: #61786a;
     --color-alive: #cef87a;
     --color-dead: #0a100e;
     --color-secondary-button: #0a100e;
@@ -34,27 +35,15 @@ nav {
 
 input[type='range'] {
     -webkit-appearance: none;
-    width: 100%;
-    height: 8px;
-    border-radius: 6px;
-    background: #61786a;
-    outline: none;
+    @apply w-full h-2 rounded-md outline-none bg-border-light;
 }
 
 input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: #cef87a;
-    cursor: pointer;
+    @apply cursor-pointer rounded-full h-6 w-6 bg-alive;
 }
 
 input[type='range']::-moz-range-thumb {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: #cef87a;
-    cursor: pointer;
+    @apply cursor-pointer rounded-full h-6 w-6 bg-alive;
 }
