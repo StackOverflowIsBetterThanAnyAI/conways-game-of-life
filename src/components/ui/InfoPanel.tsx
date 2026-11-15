@@ -1,22 +1,28 @@
 const InfoPanel = () => {
     return (
-        <div
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
-            className="rounded-lg flex w-full justify-between p-4 bg-background-light"
-        >
-            <span className="flex flex-col gap-4">
-                <div className="uppercase text-base">Generation</div>
-                <div className="text-3xl text-text">123</div>
-            </span>
-            <span className="flex flex-col gap-4">
-                <div className="uppercase text-base">Live cells</div>
-                <div className="text-3xl text-background-secondary-button">
+        <dl className="rounded-lg w-full grid grid-cols-[1fr_2px_1fr] py-4 bg-background-light">
+            <div className="flex flex-col gap-4 px-4">
+                <dt className="uppercase text-base">Generation</dt>
+                <dd
+                    role="status"
+                    aria-live="polite"
+                    className="text-3xl text-text"
+                >
+                    123
+                </dd>
+            </div>
+            <div aria-hidden="true" className="h-full w-0.5 bg-border" />
+            <div className="flex flex-col gap-4 px-4">
+                <dt className="uppercase text-base">Live cells</dt>
+                <dd
+                    role="status"
+                    aria-live="polite"
+                    className="text-3xl text-background-secondary-button"
+                >
                     234
-                </div>
-            </span>
-        </div>
+                </dd>
+            </div>
+        </dl>
     )
 }
 
