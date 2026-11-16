@@ -1,12 +1,13 @@
 import type { ComponentType, SVGProps } from 'react'
 import { GrCheckboxSelected } from 'react-icons/gr'
 import type { PatternId } from '../../patterns'
-import { GliderIcon, PulsarIcon, RPentominoIcon } from './icons'
+import { GliderIcon, PulsarIcon, RandomIcon, RPentominoIcon } from './icons'
 
 const ICONS: Record<PatternId, ComponentType<SVGProps<SVGSVGElement>>> = {
     'r-pentomino': RPentominoIcon,
     glider: GliderIcon,
     pulsar: PulsarIcon,
+    random: RandomIcon,
 }
 
 type RadioButtonProps = {

@@ -37,6 +37,13 @@ const StartingPatterns = ({
                     isSelected={patternId === 'pulsar'}
                     onSelect={setPatternId}
                 />
+                <RadioButton
+                    id="random"
+                    name="Random"
+                    info="~15% of cells · unpredictable"
+                    isSelected={patternId === 'random'}
+                    onSelect={setPatternId}
+                />
             </fieldset>
         </section>
     )

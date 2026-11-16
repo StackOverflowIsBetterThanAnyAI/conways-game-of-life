@@ -68,3 +68,16 @@ export const PulsarIcon = (props: IconProps) => (
         {...props}
     />
 )
+
+export const RandomIcon = (props: IconProps) => (
+    <Dots
+        cells={[
+            [0, 0],
+            [0, 2],
+            [1, 1],
+            [2, 0],
+            [2, 1],
+        ]}
+        {...props}
+    />
+)

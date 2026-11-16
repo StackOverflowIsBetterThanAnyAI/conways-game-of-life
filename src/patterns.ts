@@ -1,9 +1,13 @@
-export type PatternId = 'r-pentomino' | 'glider' | 'pulsar'
+export type PatternId = 'r-pentomino' | 'glider' | 'pulsar' | 'random'
+
+export type FixedPatternId = Exclude<PatternId, 'random'>
 
 export type Pattern = {
-    id: PatternId
+    id: FixedPatternId
     cells: [number, number][]
 }
+
+export const RANDOM_DENSITY = 0.15
 
 const pulsarCells = (): [number, number][] => {
     const cells: [number, number][] = []
@@ -54,7 +58,31 @@ export const placePattern = (
     const offR = Math.floor((rows - h) / 2)
     const offC = Math.floor((cols - w) / 2)
     for (const [r, c] of p.cells) {
-        grid[(r + offR) * cols + (c + offC)] = true
+        const row = r + offR
+        const col = c + offC
+        if (row < 0 || row >= rows || col < 0 || col >= cols) {
+            continue
+        }
+        grid[row * cols + col] = true
     }
     return grid
+}
+
+export const createRandomCells = (
+    rows: number,
+    cols: number,
+    density = RANDOM_DENSITY
+): boolean[] =>
+    Array.from({ length: rows * cols }, () => Math.random() < density)
+
+export const createStartingCells = (
+    id: PatternId,
+    rows: number,
+    cols: number
+): boolean[] => {
+    if (id === 'random') return createRandomCells(rows, cols)
+    const pattern = PATTERNS.find((p) => p.id === id)
+    return pattern
+        ? placePattern(pattern, rows, cols)
+        : new Array(rows * cols).fill(false)
 }
