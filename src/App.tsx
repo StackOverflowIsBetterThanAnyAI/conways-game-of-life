@@ -4,11 +4,11 @@ import { Main } from './components/main'
 
 const App = () => {
     return (
-        <>
+        <div className="flex min-h-dvh flex-col">
             <Header />
             <Main />
             <Footer />
-        </>
+        </div>
     )
 }
 
