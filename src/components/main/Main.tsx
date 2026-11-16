@@ -88,17 +88,6 @@ const Main = () => {
             if (event.repeat) {
                 return
             }
-            const target = event.target as HTMLElement
-            if (
-                target.isContentEditable ||
-                target.tagName === 'TEXTAREA' ||
-                (target.tagName === 'INPUT' &&
-                    !['radio', 'range', 'checkbox'].includes(
-                        (target as HTMLInputElement).type
-                    ))
-            ) {
-                return
-            }
 
             switch (event.key.toLowerCase()) {
                 case 'r':
