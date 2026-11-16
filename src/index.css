@@ -11,6 +11,7 @@
     --color-background-light-active: #2d4537;
     --color-border: #2b3d32;
     --color-border-light: #61786a;
+    --color-border-light-hover: #748a7c;
     --color-alive: #cef87a;
     --color-dead: #0a100e;
     --color-secondary-button: #0a100e;
@@ -39,7 +40,18 @@ nav {
 
 input[type='range'] {
     -webkit-appearance: none;
-    @apply w-full h-2 rounded-md outline-none bg-border-light focus-visible:bg-text-muted cursor-pointer;
+    --track: var(--color-border-light);
+    @apply w-full h-2 rounded-md outline-none cursor-pointer;
+    background: linear-gradient(
+        to right,
+        var(--color-alive) var(--progress, 0%),
+        var(--track) var(--progress, 0%)
+    );
+}
+
+input[type='range']:hover,
+input[type='range']:focus-visible {
+    --track: var(--color-border-light-hover);
 }
 
 input[type='range']::-webkit-slider-thumb {

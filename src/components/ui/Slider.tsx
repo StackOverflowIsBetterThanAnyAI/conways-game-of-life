@@ -6,6 +6,10 @@ const Slider = () => {
     const visibleText = `${value} gen/s`
     const spokenText = `${value} generations per second`
 
+    const MIN = 1
+    const MAX = 30
+    const progress = ((value - MIN) / (MAX - MIN)) * 100
+
     return (
         <div className="flex flex-col gap-2 w-full">
             <div className="flex gap-4 flex-wrap justify-between text-base">
@@ -25,11 +29,12 @@ const Slider = () => {
             <input
                 id="slider"
                 type="range"
-                min={1}
-                max={30}
+                min={MIN}
+                max={MAX}
                 value={value}
                 aria-valuetext={spokenText}
                 onChange={(e) => setValue(Number(e.target.value))}
+                style={{ '--progress': `${progress}%` } as React.CSSProperties}
                 className="w-full"
             />
 
