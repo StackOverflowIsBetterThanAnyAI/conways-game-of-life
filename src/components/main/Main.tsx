@@ -1,6 +1,10 @@
 import { useState } from 'react'
 import { resizeCells, type Board } from '../../grid'
-import { createStartingCells, type PatternId } from '../../patterns'
+import {
+    createStartingCells,
+    growRandomBoard,
+    type PatternId,
+} from '../../patterns'
 import {
     Canvas,
     Cell,
@@ -21,10 +25,7 @@ const Main = () => {
         cells: [],
     })
 
-    const [randomStart, setRandomStart] = useState<{
-        cells: boolean[]
-        columns: number
-    } | null>(null)
+    const [randomStart, setRandomStart] = useState<Board | null>(null)
 
     const liveCells = board.cells.filter(Boolean).length
 
@@ -36,7 +37,7 @@ const Main = () => {
         setGeneration(0)
         setBoard({ ...board, cells })
         if (id === 'random') {
-            setRandomStart({ cells, columns: board.columns })
+            setRandomStart({ rows: board.rows, columns: board.columns, cells })
         }
     }
 
@@ -50,10 +51,16 @@ const Main = () => {
         loadPattern(patternId)
     }
 
-    const getStartCells = (rows: number, columns: number) =>
-        patternId === 'random' && randomStart
-            ? resizeCells(randomStart.cells, randomStart.columns, rows, columns)
-            : createStartingCells(patternId, rows, columns)
+    const getStartCells = (rows: number, columns: number) => {
+        if (patternId !== 'random' || !randomStart) {
+            return createStartingCells(patternId, rows, columns)
+        }
+        const grown = growRandomBoard(randomStart, rows, columns)
+        if (grown !== randomStart) {
+            setRandomStart(grown)
+        }
+        return resizeCells(grown.cells, grown.columns, rows, columns)
+    }
 
     const resetBoard = () => {
         setGeneration(0)

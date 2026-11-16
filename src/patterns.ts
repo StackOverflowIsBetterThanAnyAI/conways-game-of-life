@@ -1,3 +1,5 @@
+import type { Board } from './grid'
+
 export type PatternId = 'r-pentomino' | 'glider' | 'pulsar' | 'random'
 
 export type FixedPatternId = Exclude<PatternId, 'random'>
@@ -87,4 +89,27 @@ export const createStartingCells = (
     return pattern
         ? placePattern(pattern, rows, cols)
         : new Array(rows * cols).fill(false)
+}
+
+export const growRandomBoard = (
+    start: Board,
+    rows: number,
+    columns: number,
+    density = RANDOM_DENSITY
+): Board => {
+    if (rows <= start.rows && columns <= start.columns) {
+        return start
+    }
+    const nextRows = Math.max(start.rows, rows)
+    const nextColumns = Math.max(start.columns, columns)
+    const cells = new Array<boolean>(nextRows * nextColumns)
+    for (let row = 0; row < nextRows; row++) {
+        for (let column = 0; column < nextColumns; column++) {
+            const isKnown = row < start.rows && column < start.columns
+            cells[row * nextColumns + column] = isKnown
+                ? start.cells[row * start.columns + column]
+                : Math.random() < density
+        }
+    }
+    return { rows: nextRows, columns: nextColumns, cells }
 }
