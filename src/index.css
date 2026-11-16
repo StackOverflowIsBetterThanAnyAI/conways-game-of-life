@@ -7,12 +7,16 @@
     --color-text: #f3f7f0;
     --color-background: #0a100e;
     --color-background-light: #131f19;
+    --color-background-light-hover: #203127;
+    --color-background-light-active: #2d4537;
     --color-border: #2b3d32;
     --color-border-light: #61786a;
     --color-alive: #cef87a;
     --color-dead: #0a100e;
     --color-secondary-button: #0a100e;
     --color-background-secondary-button: #cef87a;
+    --color-background-secondary-button-hover: #b4f433;
+    --color-background-secondary-button-active: #9fe90c;
 }
 
 body {
@@ -35,15 +39,27 @@ nav {
 
 input[type='range'] {
     -webkit-appearance: none;
-    @apply w-full h-2 rounded-md outline-none bg-border-light;
+    @apply w-full h-2 rounded-md outline-none bg-border-light focus-visible:bg-text-muted;
 }
 
 input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    @apply cursor-pointer rounded-full h-6 w-6 bg-alive;
+    @apply cursor-pointer rounded-full h-5 w-5 bg-alive;
 }
 
 input[type='range']::-moz-range-thumb {
-    @apply cursor-pointer rounded-full h-6 w-6 bg-alive;
+    @apply cursor-pointer rounded-full h-5 w-5 bg-alive border-0;
+}
+
+input[type='range']:focus-visible::-webkit-slider-thumb {
+    box-shadow:
+        0 0 0 3px var(--color-background-light),
+        0 0 0 5px var(--color-alive);
+}
+
+input[type='range']:focus-visible::-moz-range-thumb {
+    box-shadow:
+        0 0 0 3px var(--color-background-light),
+        0 0 0 5px var(--color-alive);
 }
