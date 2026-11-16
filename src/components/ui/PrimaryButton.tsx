@@ -1,4 +1,7 @@
-type PrimaryButtonProps = { handleClick: () => void; label: string }
+type PrimaryButtonProps = {
+    handleClick: () => void
+    label: string
+}
 
 const PrimaryButton = ({ handleClick, label }: PrimaryButtonProps) => {
     return (

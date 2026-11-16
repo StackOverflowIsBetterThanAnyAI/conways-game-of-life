@@ -1,4 +1,7 @@
-type SecondaryButtonProps = { handleClick: () => void; label: string }
+type SecondaryButtonProps = {
+    handleClick: () => void
+    label: string
+}
 
 const SecondaryButton = ({ handleClick, label }: SecondaryButtonProps) => {
     return (
