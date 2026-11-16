@@ -73,11 +73,11 @@ const Main = () => {
     return (
         <main className="p-4 justify-center flex flex-1">
             <div className="w-full max-w-7xl flex flex-wrap gap-4 text-base">
-                <div className="flex flex-1 flex-col w-full gap-4 p-4 rounded-lg outline-2 outline-border bg-background-light">
+                <div className="flex flex-1 flex-col w-full gap-6 p-4 rounded-lg outline-2 outline-border bg-background-light">
                     <section className="flex flex-col">
                         <h2 className="uppercase">The Board</h2>
-                        <h3 className="uppercase text-xl text-text">
-                            A handful of cells
+                        <h3 className="text-xl text-text">
+                            A handful of cells. One Universe.
                         </h3>
                     </section>
                     <Canvas
@@ -102,12 +102,20 @@ const Main = () => {
                         </span>
                     </div>
                 </div>
-                <div className="flex flex-col gap-4 w-full max-w-80">
+                <div className="flex flex-col gap-6 w-full max-w-80">
                     <InfoPanel generation={generation} liveCells={liveCells} />
-                    <SecondaryButton label="Start" handleClick={() => {}} />
-                    <div className="flex gap-4">
-                        <PrimaryButton label="Step" handleClick={() => {}} />
-                        <PrimaryButton label="Reset" handleClick={resetBoard} />
+                    <div className="flex flex-col gap-4">
+                        <SecondaryButton label="Start" handleClick={() => {}} />
+                        <div className="flex gap-4">
+                            <PrimaryButton
+                                label="Step"
+                                handleClick={() => {}}
+                            />
+                            <PrimaryButton
+                                label="Reset"
+                                handleClick={resetBoard}
+                            />
+                        </div>
                     </div>
                     <Slider />
                     <StartingPatterns
