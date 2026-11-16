@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import type { PatternId } from '../../patterns'
+import { useEffect, useState } from 'react'
+import { placePattern, type PatternId } from '../../patterns'
 import {
     Canvas,
     Cell,
@@ -12,6 +12,8 @@ import {
 } from '../ui'
 
 const Main = () => {
+    const [generation, setGeneration] = useState(0)
+    const [liveCells, setLiveCells] = useState(0)
     const [patternId, setPatternId] = useState<PatternId>('r-pentomino')
 
     return (
@@ -40,12 +42,10 @@ const Main = () => {
                                 </span>
                             </span>
                         </span>
-                        <span>Click or drag to draw</span>
-                        <span>Resize Button Placeholder</span>
                     </div>
                 </div>
                 <div className="flex flex-col gap-4 w-full max-w-80">
-                    <InfoPanel />
+                    <InfoPanel generation={generation} liveCells={liveCells} />
                     <SecondaryButton label="Start" handleClick={() => {}} />
                     <div className="flex gap-4">
                         <PrimaryButton label="Step" handleClick={() => {}} />

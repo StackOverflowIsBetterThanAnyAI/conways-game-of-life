@@ -1,4 +1,9 @@
-const InfoPanel = () => {
+type InfoPanelProps = {
+    generation: number
+    liveCells: number
+}
+
+const InfoPanel = ({ generation, liveCells }: InfoPanelProps) => {
     return (
         <dl className="rounded-lg w-full grid grid-cols-[1fr_2px_1fr] py-4 bg-background-light">
             <div className="flex flex-col gap-4 px-4">
@@ -8,7 +13,7 @@ const InfoPanel = () => {
                     aria-live="polite"
                     className="text-3xl text-text"
                 >
-                    123
+                    {generation}
                 </dd>
             </div>
             <div aria-hidden="true" className="h-full w-0.5 bg-border" />
@@ -19,7 +24,7 @@ const InfoPanel = () => {
                     aria-live="polite"
                     className="text-3xl text-background-secondary-button"
                 >
-                    234
+                    {liveCells}
                 </dd>
             </div>
         </dl>
