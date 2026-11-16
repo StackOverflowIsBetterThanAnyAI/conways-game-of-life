@@ -80,7 +80,9 @@ export const createStartingCells = (
     rows: number,
     cols: number
 ): boolean[] => {
-    if (id === 'random') return createRandomCells(rows, cols)
+    if (id === 'random') {
+        return createRandomCells(rows, cols)
+    }
     const pattern = PATTERNS.find((p) => p.id === id)
     return pattern
         ? placePattern(pattern, rows, cols)
