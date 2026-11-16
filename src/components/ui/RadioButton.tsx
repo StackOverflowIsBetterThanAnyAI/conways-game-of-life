@@ -16,6 +16,7 @@ type RadioButtonProps = {
     info: string
     isSelected: boolean
     onSelect: (id: PatternId) => void
+    onReselect?: (id: PatternId) => void
 }
 
 const RadioButton = ({
@@ -24,6 +25,7 @@ const RadioButton = ({
     isSelected,
     name,
     onSelect,
+    onReselect,
 }: RadioButtonProps) => {
     const Icon = ICONS[id]
 
@@ -39,6 +41,16 @@ const RadioButton = ({
                 value={id}
                 checked={isSelected}
                 onChange={() => onSelect(id)}
+                onClick={() => {
+                    if (isSelected) {
+                        onReselect?.(id)
+                    }
+                }}
+                onKeyDown={(e) => {
+                    if (isSelected && [' ', 'Enter'].includes(e.key)) {
+                        onReselect?.(id)
+                    }
+                }}
                 className="sr-only"
             />
             <span className="flex gap-4 items-center">

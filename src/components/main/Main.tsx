@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { Board } from '../../grid'
+import { resizeCells, type Board } from '../../grid'
 import { createStartingCells, type PatternId } from '../../patterns'
 import {
     Canvas,
@@ -21,15 +21,53 @@ const Main = () => {
         cells: [],
     })
 
+    const [randomStart, setRandomStart] = useState<{
+        cells: boolean[]
+        columns: number
+    } | null>(null)
+
     const liveCells = board.cells.filter(Boolean).length
 
+    const hasStarted = !!generation
+
     const loadPattern = (id: PatternId) => {
+        const cells = createStartingCells(id, board.rows, board.columns)
         setPatternId(id)
         setGeneration(0)
-        setBoard((prev) => ({
-            ...prev,
-            cells: createStartingCells(id, prev.rows, prev.columns),
-        }))
+        setBoard({ ...board, cells })
+        if (id === 'random') {
+            setRandomStart({ cells, columns: board.columns })
+        }
+    }
+
+    const reselectPattern = (id: PatternId) => {
+        if (id === 'random' && !hasStarted) {
+            loadPattern('random')
+        }
+    }
+
+    const clearBoard = () => {
+        loadPattern(patternId)
+    }
+
+    const resetBoard = () => {
+        setGeneration(0)
+        if (patternId === 'random' && randomStart) {
+            setBoard({
+                ...board,
+                cells: resizeCells(
+                    randomStart.cells,
+                    randomStart.columns,
+                    board.rows,
+                    board.columns
+                ),
+            })
+            return
+        }
+        setBoard({
+            ...board,
+            cells: createStartingCells(patternId, board.rows, board.columns),
+        })
     }
 
     return (
@@ -69,15 +107,19 @@ const Main = () => {
                     <SecondaryButton label="Start" handleClick={() => {}} />
                     <div className="flex gap-4">
                         <PrimaryButton label="Step" handleClick={() => {}} />
-                        <PrimaryButton label="Reset" handleClick={() => {}} />
+                        <PrimaryButton label="Reset" handleClick={resetBoard} />
                     </div>
                     <Slider />
                     <StartingPatterns
                         patternId={patternId}
                         onSelect={loadPattern}
+                        onReselect={reselectPattern}
                     />
                     <RulePanel />
-                    <PrimaryButton label="Clear board" handleClick={() => {}} />
+                    <PrimaryButton
+                        label="Clear board"
+                        handleClick={clearBoard}
+                    />
                 </div>
             </div>
         </main>

@@ -4,9 +4,14 @@ import RadioButton from './RadioButton'
 type StartingPatternsProps = {
     patternId: PatternId
     onSelect: (id: PatternId) => void
+    onReselect?: (id: PatternId) => void
 }
 
-const StartingPatterns = ({ patternId, onSelect }: StartingPatternsProps) => {
+const StartingPatterns = ({
+    patternId,
+    onSelect,
+    onReselect,
+}: StartingPatternsProps) => {
     return (
         <section className="flex flex-col gap-2">
             <h2 className="text-text text-lg">Starting patterns</h2>
@@ -40,6 +45,7 @@ const StartingPatterns = ({ patternId, onSelect }: StartingPatternsProps) => {
                     info="~15% of cells · unpredictable"
                     isSelected={patternId === 'random'}
                     onSelect={onSelect}
+                    onReselect={onReselect}
                 />
             </fieldset>
         </section>
