@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { resizeCells, type Board } from '../../grid'
 import {
     createStartingCells,
@@ -74,6 +74,47 @@ const Main = () => {
         setGeneration(0)
         setBoard({ rows, columns, cells: getStartCells(rows, columns) })
     }
+
+    const shortcutsRef = useRef({ reset: resetBoard, clear: clearBoard })
+    useEffect(() => {
+        shortcutsRef.current = { reset: resetBoard, clear: clearBoard }
+    })
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.ctrlKey || event.metaKey || event.altKey) {
+                return
+            }
+            if (event.repeat) {
+                return
+            }
+            const target = event.target as HTMLElement
+            if (
+                target.isContentEditable ||
+                target.tagName === 'TEXTAREA' ||
+                (target.tagName === 'INPUT' &&
+                    !['radio', 'range', 'checkbox'].includes(
+                        (target as HTMLInputElement).type
+                    ))
+            ) {
+                return
+            }
+
+            switch (event.key.toLowerCase()) {
+                case 'r':
+                    shortcutsRef.current.reset()
+                    break
+                case 'c':
+                    shortcutsRef.current.clear()
+                    break
+            }
+        }
+
+        window.addEventListener('keydown', handleKeyDown)
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown)
+        }
+    }, [])
 
     return (
         <main className="p-4 justify-center flex flex-1">
