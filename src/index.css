@@ -39,7 +39,7 @@ nav {
 
 input[type='range'] {
     -webkit-appearance: none;
-    @apply w-full h-2 rounded-md outline-none bg-border-light focus-visible:bg-text-muted;
+    @apply w-full h-2 rounded-md outline-none bg-border-light focus-visible:bg-text-muted cursor-pointer;
 }
 
 input[type='range']::-webkit-slider-thumb {
