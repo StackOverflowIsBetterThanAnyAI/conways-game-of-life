@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { PatternId } from '../../patterns'
 import {
+    Canvas,
     Cell,
     InfoPanel,
     PrimaryButton,
@@ -23,6 +24,7 @@ const Main = () => {
                             A handful of cells
                         </h3>
                     </section>
+                    <Canvas />
                     <div className="flex justify-between items-center">
                         <span className="flex gap-4">
                             <span className="flex gap-2 items-center">

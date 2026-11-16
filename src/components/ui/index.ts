@@ -1,3 +1,4 @@
+export { default as Canvas } from './Canvas'
 export { default as Cell } from './Cell'
 export { default as InfoPanel } from './InfoPanel'
 export { default as PrimaryButton } from './PrimaryButton'
