@@ -4,10 +4,10 @@ import {
     Cell,
     InfoPanel,
     PrimaryButton,
-    RadioButton,
     RulePanel,
     SecondaryButton,
     Slider,
+    StartingPatterns,
 } from '../ui'
 
 const Main = () => {
@@ -50,38 +50,10 @@ const Main = () => {
                         <PrimaryButton label="Reset" handleClick={() => {}} />
                     </div>
                     <Slider />
-                    <section className="flex flex-col gap-2">
-                        <h2 className="text-text text-lg">Starting patterns</h2>
-                        <span className="text-text-muted">
-                            Start over with a pattern
-                        </span>
-                        <fieldset className="flex flex-col gap-2">
-                            <legend className="sr-only">
-                                Starting patterns
-                            </legend>
-                            <RadioButton
-                                id="r-pentomino"
-                                name="R-Pentomino"
-                                info="5 cells · chaotic"
-                                isSelected={patternId === 'r-pentomino'}
-                                onSelect={setPatternId}
-                            />
-                            <RadioButton
-                                id="glider"
-                                name="Glider"
-                                info="5 cells · moving"
-                                isSelected={patternId === 'glider'}
-                                onSelect={setPatternId}
-                            />
-                            <RadioButton
-                                id="pulsar"
-                                name="Pulsar"
-                                info="48 cells · oscillating"
-                                isSelected={patternId === 'pulsar'}
-                                onSelect={setPatternId}
-                            />
-                        </fieldset>
-                    </section>
+                    <StartingPatterns
+                        patternId={patternId}
+                        setPatternId={setPatternId}
+                    />
                     <RulePanel />
                     <PrimaryButton label="Clear board" handleClick={() => {}} />
                 </div>
