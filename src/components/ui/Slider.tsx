@@ -9,7 +9,7 @@ const Slider = () => {
     return (
         <div className="flex flex-col gap-2 w-full">
             <div className="flex gap-4 flex-wrap justify-between text-base">
-                <label htmlFor="slider" className="text-text">
+                <label htmlFor="slider" className="text-text text-lg">
                     Speed
                 </label>
 
