@@ -1,18 +1,21 @@
-import { useEffect, useRef, type Dispatch, type SetStateAction } from 'react'
-import { resizeCells, type Board } from '../../grid'
-import { createStartingCells, type PatternId } from '../../patterns'
+import { useEffect, useRef } from 'react'
+import type { Board } from '../../grid'
 import Cell from './Cell'
 
 const CELL_SIZE = 16
 
 type CanvasProps = {
     board: Board
-    setBoard: Dispatch<SetStateAction<Board>>
-    patternId: PatternId
+    onResize: (rows: number, columns: number) => void
 }
 
-const Canvas = ({ board, setBoard, patternId }: CanvasProps) => {
+const Canvas = ({ board, onResize }: CanvasProps) => {
     const canvasRef = useRef<HTMLElement>(null)
+
+    const onResizeRef = useRef(onResize)
+    useEffect(() => {
+        onResizeRef.current = onResize
+    })
 
     useEffect(() => {
         const canvas = canvasRef.current
@@ -20,30 +23,18 @@ const Canvas = ({ board, setBoard, patternId }: CanvasProps) => {
             return
         }
 
+        let lastRows = -1
+        let lastColumns = -1
+
         const handleResize = () => {
             const columns = Math.floor(canvas.clientWidth / CELL_SIZE)
             const rows = Math.floor(canvas.clientHeight / CELL_SIZE)
-            setBoard((prev) =>
-                prev.rows === rows && prev.columns === columns
-                    ? prev
-                    : {
-                          rows,
-                          columns,
-                          cells:
-                              !prev.rows || !prev.columns
-                                  ? createStartingCells(
-                                        patternId,
-                                        rows,
-                                        columns
-                                    )
-                                  : resizeCells(
-                                        prev.cells,
-                                        prev.columns,
-                                        rows,
-                                        columns
-                                    ),
-                      }
-            )
+            if (rows === lastRows && columns === lastColumns) {
+                return
+            }
+            lastRows = rows
+            lastColumns = columns
+            onResizeRef.current(rows, columns)
         }
 
         const observer = new ResizeObserver(handleResize)
@@ -52,7 +43,7 @@ const Canvas = ({ board, setBoard, patternId }: CanvasProps) => {
         return () => {
             observer.disconnect()
         }
-    }, [patternId, setBoard])
+    }, [])
 
     return (
         <section

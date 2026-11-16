@@ -50,24 +50,22 @@ const Main = () => {
         loadPattern(patternId)
     }
 
+    const getStartCells = (rows: number, columns: number) =>
+        patternId === 'random' && randomStart
+            ? resizeCells(randomStart.cells, randomStart.columns, rows, columns)
+            : createStartingCells(patternId, rows, columns)
+
     const resetBoard = () => {
         setGeneration(0)
-        if (patternId === 'random' && randomStart) {
-            setBoard({
-                ...board,
-                cells: resizeCells(
-                    randomStart.cells,
-                    randomStart.columns,
-                    board.rows,
-                    board.columns
-                ),
-            })
-            return
-        }
         setBoard({
             ...board,
-            cells: createStartingCells(patternId, board.rows, board.columns),
+            cells: getStartCells(board.rows, board.columns),
         })
+    }
+
+    const handleResize = (rows: number, columns: number) => {
+        setGeneration(0)
+        setBoard({ rows, columns, cells: getStartCells(rows, columns) })
     }
 
     return (
@@ -80,11 +78,7 @@ const Main = () => {
                             A handful of cells. One Universe.
                         </h3>
                     </section>
-                    <Canvas
-                        board={board}
-                        setBoard={setBoard}
-                        patternId={patternId}
-                    />
+                    <Canvas board={board} onResize={handleResize} />
                     <div className="flex justify-between items-center">
                         <span className="flex gap-4">
                             <span className="flex gap-2 items-center">
