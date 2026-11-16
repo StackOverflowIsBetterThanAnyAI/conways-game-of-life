@@ -1,16 +1,18 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, type Dispatch, type SetStateAction } from 'react'
 import { resizeCells, type Board } from '../../grid'
+import { createStartingCells, type PatternId } from '../../patterns'
 import Cell from './Cell'
 
 const CELL_SIZE = 16
 
-const Canvas = () => {
+type CanvasProps = {
+    board: Board
+    setBoard: Dispatch<SetStateAction<Board>>
+    patternId: PatternId
+}
+
+const Canvas = ({ board, setBoard, patternId }: CanvasProps) => {
     const canvasRef = useRef<HTMLElement>(null)
-    const [board, setBoard] = useState<Board>({
-        rows: 0,
-        columns: 0,
-        cells: [],
-    })
 
     useEffect(() => {
         const canvas = canvasRef.current
@@ -27,12 +29,19 @@ const Canvas = () => {
                     : {
                           rows,
                           columns,
-                          cells: resizeCells(
-                              prev.cells,
-                              prev.columns,
-                              rows,
-                              columns
-                          ),
+                          cells:
+                              !prev.rows || !prev.columns
+                                  ? createStartingCells(
+                                        patternId,
+                                        rows,
+                                        columns
+                                    )
+                                  : resizeCells(
+                                        prev.cells,
+                                        prev.columns,
+                                        rows,
+                                        columns
+                                    ),
                       }
             )
         }
@@ -43,7 +52,7 @@ const Canvas = () => {
         return () => {
             observer.disconnect()
         }
-    }, [])
+    }, [patternId, setBoard])
 
     return (
         <section

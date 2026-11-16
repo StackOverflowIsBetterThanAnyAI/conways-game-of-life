@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
-import { placePattern, type PatternId } from '../../patterns'
+import { useState } from 'react'
+import type { Board } from '../../grid'
+import { createStartingCells, type PatternId } from '../../patterns'
 import {
     Canvas,
     Cell,
@@ -13,8 +14,23 @@ import {
 
 const Main = () => {
     const [generation, setGeneration] = useState(0)
-    const [liveCells, setLiveCells] = useState(0)
     const [patternId, setPatternId] = useState<PatternId>('r-pentomino')
+    const [board, setBoard] = useState<Board>({
+        rows: 0,
+        columns: 0,
+        cells: [],
+    })
+
+    const liveCells = board.cells.filter(Boolean).length
+
+    const loadPattern = (id: PatternId) => {
+        setPatternId(id)
+        setGeneration(0)
+        setBoard((prev) => ({
+            ...prev,
+            cells: createStartingCells(id, prev.rows, prev.columns),
+        }))
+    }
 
     return (
         <main className="p-4 justify-center flex flex-1">
@@ -26,7 +42,11 @@ const Main = () => {
                             A handful of cells
                         </h3>
                     </section>
-                    <Canvas />
+                    <Canvas
+                        board={board}
+                        setBoard={setBoard}
+                        patternId={patternId}
+                    />
                     <div className="flex justify-between items-center">
                         <span className="flex gap-4">
                             <span className="flex gap-2 items-center">
@@ -54,7 +74,7 @@ const Main = () => {
                     <Slider />
                     <StartingPatterns
                         patternId={patternId}
-                        setPatternId={setPatternId}
+                        onSelect={loadPattern}
                     />
                     <RulePanel />
                     <PrimaryButton label="Clear board" handleClick={() => {}} />
