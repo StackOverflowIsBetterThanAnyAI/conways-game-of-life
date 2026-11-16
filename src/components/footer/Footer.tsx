@@ -20,6 +20,12 @@ const Footer = () => {
                     <span aria-hidden="true" className="first-letter:font-bold">
                         R to reset
                     </span>
+                    <span aria-hidden="true" className="font-bold">
+                        ·
+                    </span>
+                    <span aria-hidden="true" className="first-letter:font-bold">
+                        C to clear board
+                    </span>
                     <span className="sr-only">
                         Press Space to start and stop
                     </span>
@@ -27,6 +33,7 @@ const Footer = () => {
                         Press right arrow to go step by step
                     </span>
                     <span className="sr-only">Press R to reset</span>
+                    <span className="sr-only">Press C to clear the board</span>
                 </section>
             </div>
         </footer>
