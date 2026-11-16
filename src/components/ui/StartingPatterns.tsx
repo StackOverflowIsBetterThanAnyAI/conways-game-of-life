@@ -3,13 +3,10 @@ import RadioButton from './RadioButton'
 
 type StartingPatternsProps = {
     patternId: PatternId
-    setPatternId: React.Dispatch<React.SetStateAction<PatternId>>
+    onSelect: (id: PatternId) => void
 }
 
-const StartingPatterns = ({
-    patternId,
-    setPatternId,
-}: StartingPatternsProps) => {
+const StartingPatterns = ({ patternId, onSelect }: StartingPatternsProps) => {
     return (
         <section className="flex flex-col gap-2">
             <h2 className="text-text text-lg">Starting patterns</h2>
@@ -21,28 +18,28 @@ const StartingPatterns = ({
                     name="R-Pentomino"
                     info="5 cells · chaotic"
                     isSelected={patternId === 'r-pentomino'}
-                    onSelect={setPatternId}
+                    onSelect={onSelect}
                 />
                 <RadioButton
                     id="glider"
                     name="Glider"
                     info="5 cells · moving"
                     isSelected={patternId === 'glider'}
-                    onSelect={setPatternId}
+                    onSelect={onSelect}
                 />
                 <RadioButton
                     id="pulsar"
                     name="Pulsar"
                     info="48 cells · oscillating"
                     isSelected={patternId === 'pulsar'}
-                    onSelect={setPatternId}
+                    onSelect={onSelect}
                 />
                 <RadioButton
                     id="random"
                     name="Random"
                     info="~15% of cells · unpredictable"
                     isSelected={patternId === 'random'}
-                    onSelect={setPatternId}
+                    onSelect={onSelect}
                 />
             </fieldset>
         </section>
