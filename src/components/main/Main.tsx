@@ -20,6 +20,7 @@ const Main = () => {
     const [generation, setGeneration] = useState(0)
     const [generationsPerSecond, setGenerationsPerSecond] = useState(5)
     const [isRunning, setIsRunning] = useState(false)
+    const [isMovingByStep, setIsMovingByStep] = useState(false)
     const [patternId, setPatternId] = useState<PatternId>('r-pentomino')
     const [board, setBoard] = useState<Board>({
         rows: 0,
@@ -66,6 +67,13 @@ const Main = () => {
 
     const handleIsRunning = () => {
         setIsRunning((prev) => !prev)
+        setIsMovingByStep(false)
+    }
+
+    const handleIsMovingByStep = () => {
+        setIsRunning(false)
+        setIsMovingByStep(true)
+        gameTick()
     }
 
     const resetBoard = () => {
@@ -88,10 +96,24 @@ const Main = () => {
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
+            event.stopPropagation()
             if (event.ctrlKey || event.metaKey || event.altKey) {
                 return
             }
-            if (event.repeat) {
+            const target = event.target as HTMLElement
+            if (event.key.toLowerCase() !== 'arrowright' && event.repeat) {
+                return
+            }
+            if (
+                event.key.toLowerCase() === 'arrowright' &&
+                target.tagName === 'INPUT'
+            ) {
+                return
+            }
+            if (
+                event.key === ' ' &&
+                (target.tagName === 'BUTTON' || target.tagName === 'INPUT')
+            ) {
                 return
             }
 
@@ -101,6 +123,13 @@ const Main = () => {
                     break
                 case 'c':
                     shortcutsRef.current.clear()
+                    break
+                case 'arrowright':
+                    handleIsMovingByStep()
+                    break
+                case ' ':
+                    event.preventDefault()
+                    handleIsRunning()
                     break
             }
         }
@@ -129,14 +158,16 @@ const Main = () => {
         if (!isRunning) {
             return
         }
-        const id = setInterval(() => {
-            gameTick()
-        }, interval)
+        const id = isMovingByStep
+            ? undefined
+            : setInterval(() => {
+                  gameTick()
+              }, interval)
 
         return () => {
             clearInterval(id)
         }
-    }, [gameTick, interval, isRunning])
+    }, [gameTick, interval, isMovingByStep, isRunning])
 
     return (
         <main className="p-4 justify-center flex flex-1">
@@ -176,7 +207,7 @@ const Main = () => {
                         <div className="flex gap-4">
                             <PrimaryButton
                                 label="Step"
-                                handleClick={() => {}}
+                                handleClick={handleIsMovingByStep}
                             />
                             <PrimaryButton
                                 label="Reset"
