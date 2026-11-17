@@ -48,7 +48,7 @@ const Canvas = ({ board, onResize }: CanvasProps) => {
     return (
         <section
             ref={canvasRef}
-            className="relative flex-1 min-h-0 outline-2 outline-dead rounded-sm overflow-hidden"
+            className="relative flex-1 min-h-128 outline-2 outline-dead rounded-sm overflow-hidden"
         >
             <div
                 className="absolute inset-0 grid place-content-center"
