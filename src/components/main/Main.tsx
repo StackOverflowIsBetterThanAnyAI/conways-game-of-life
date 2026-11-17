@@ -197,8 +197,8 @@ const Main = () => {
                         </span>
                     </div>
                 </div>
-                <div className="flex flex-col gap-6 min-w-80">
-                    <div className="grid grid-cols-2 grid-rows-[1fr_1fr_auto] gap-4 lg:flex lg:flex-col">
+                <div className="flex flex-col gap-6 w-full sm:min-w-80">
+                    <div className="sm:grid sm:grid-cols-2 sm:grid-rows-[1fr_1fr_auto] gap-4 flex flex-col lg:flex lg:flex-col">
                         <InfoPanel
                             generation={generation}
                             liveCells={liveCells}
