@@ -171,11 +171,11 @@ const Main = () => {
 
     return (
         <main className="p-4 justify-center flex flex-1">
-            <div className="w-full max-w-7xl grid grid-cols-1 min-lg:grid-cols-[minmax(640px,1fr)_320px] gap-4 text-base">
-                <div className="flex flex-col min-w-0 gap-6 p-4 rounded-lg outline-2 outline-border bg-background-light">
+            <div className="w-full max-w-7xl grid grid-cols-1 min-lg:grid-cols-[minmax(640px,1fr)_320px] gap-4 text-sm sm:text-base">
+                <div className="flex flex-col min-w-0 gap-4 sm:gap-6 p-4 rounded-lg outline-2 outline-border bg-background-light">
                     <section className="flex flex-col">
                         <h2 className="uppercase">The Board</h2>
-                        <h3 className="text-xl text-text">
+                        <h3 className="text-lg sm:text-xl text-text">
                             A handful of cells. One Universe.
                         </h3>
                     </section>
