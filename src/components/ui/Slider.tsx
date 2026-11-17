@@ -1,14 +1,18 @@
-import { useState } from 'react'
+type SliderProps = {
+    generationsPerSecond: number
+    setGenerationsPerSecond: React.Dispatch<React.SetStateAction<number>>
+}
 
-const Slider = () => {
-    const [value, setValue] = useState(10)
-
-    const visibleText = `${value} gen/s`
-    const spokenText = `${value} generations per second`
+const Slider = ({
+    generationsPerSecond,
+    setGenerationsPerSecond,
+}: SliderProps) => {
+    const visibleText = `${generationsPerSecond} gen/s`
+    const spokenText = `${generationsPerSecond} generations per second`
 
     const MIN = 1
     const MAX = 30
-    const progress = ((value - MIN) / (MAX - MIN)) * 100
+    const progress = ((generationsPerSecond - MIN) / (MAX - MIN)) * 100
 
     return (
         <div className="flex flex-col gap-2 w-full">
@@ -31,9 +35,11 @@ const Slider = () => {
                 type="range"
                 min={MIN}
                 max={MAX}
-                value={value}
+                value={generationsPerSecond}
                 aria-valuetext={spokenText}
-                onChange={(e) => setValue(Number(e.target.value))}
+                onChange={(e) =>
+                    setGenerationsPerSecond(Number(e.target.value))
+                }
                 style={{ '--progress': `${progress}%` } as React.CSSProperties}
                 className="w-full"
             />

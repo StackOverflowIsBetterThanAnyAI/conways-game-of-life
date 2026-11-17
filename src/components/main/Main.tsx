@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
-import { resizeCells, type Board } from '../../grid'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { nextGeneration, resizeCells, type Board } from '../../grid'
 import {
     createStartingCells,
     growRandomBoard,
@@ -18,6 +18,8 @@ import {
 
 const Main = () => {
     const [generation, setGeneration] = useState(0)
+    const [generationsPerSecond, setGenerationsPerSecond] = useState(5)
+    const [isRunning, setIsRunning] = useState(false)
     const [patternId, setPatternId] = useState<PatternId>('r-pentomino')
     const [board, setBoard] = useState<Board>({
         rows: 0,
@@ -60,6 +62,10 @@ const Main = () => {
             setRandomStart(grown)
         }
         return resizeCells(grown.cells, grown.columns, rows, columns)
+    }
+
+    const handleIsRunning = () => {
+        setIsRunning((prev) => !prev)
     }
 
     const resetBoard = () => {
@@ -105,6 +111,33 @@ const Main = () => {
         }
     }, [])
 
+    const interval = 1000 / generationsPerSecond
+
+    const gameTick = useCallback(() => {
+        setBoard((prev) => ({
+            ...prev,
+            cells: nextGeneration({
+                cells: prev.cells,
+                rows: prev.rows,
+                columns: prev.columns,
+            }),
+        }))
+        setGeneration((prev) => prev + 1)
+    }, [board])
+
+    useEffect(() => {
+        if (!isRunning) {
+            return
+        }
+        const id = setInterval(() => {
+            gameTick()
+        }, interval)
+
+        return () => {
+            clearInterval(id)
+        }
+    }, [interval, isRunning])
+
     return (
         <main className="p-4 justify-center flex flex-1">
             <div className="w-full max-w-7xl flex flex-wrap gap-4 text-base">
@@ -136,7 +169,10 @@ const Main = () => {
                 <div className="flex flex-col gap-6 w-full max-w-80">
                     <InfoPanel generation={generation} liveCells={liveCells} />
                     <div className="flex flex-col gap-4">
-                        <SecondaryButton label="Start" handleClick={() => {}} />
+                        <SecondaryButton
+                            label={isRunning ? 'Stop' : 'Start'}
+                            handleClick={handleIsRunning}
+                        />
                         <div className="flex gap-4">
                             <PrimaryButton
                                 label="Step"
@@ -148,7 +184,10 @@ const Main = () => {
                             />
                         </div>
                     </div>
-                    <Slider />
+                    <Slider
+                        generationsPerSecond={generationsPerSecond}
+                        setGenerationsPerSecond={setGenerationsPerSecond}
+                    />
                     <StartingPatterns
                         patternId={patternId}
                         onSelect={loadPattern}
