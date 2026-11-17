@@ -16,8 +16,11 @@ const Slider = ({
 
     return (
         <div className="flex flex-col gap-2 w-full">
-            <div className="flex gap-4 flex-wrap justify-between text-base">
-                <label htmlFor="slider" className="text-text text-lg">
+            <div className="flex gap-4 flex-wrap justify-between text-sm sm:text-base">
+                <label
+                    htmlFor="slider"
+                    className="text-text text-base sm:text-lg"
+                >
                     Speed
                 </label>
 
@@ -29,7 +32,6 @@ const Slider = ({
                 </span>
                 <span className="sr-only">{spokenText}</span>
             </div>
-
             <input
                 id="slider"
                 type="range"
@@ -43,7 +45,6 @@ const Slider = ({
                 style={{ '--progress': `${progress}%` } as React.CSSProperties}
                 className="w-full"
             />
-
             <div
                 aria-hidden="true"
                 className="flex gap-4 justify-between text-sm"

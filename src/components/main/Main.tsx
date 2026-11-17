@@ -170,8 +170,8 @@ const Main = () => {
     }, [gameTick, interval, isMovingByStep, isRunning])
 
     return (
-        <main className="p-4 justify-center flex flex-1">
-            <div className="w-full max-w-7xl grid grid-cols-1 min-lg:grid-cols-[minmax(640px,1fr)_320px] gap-4 text-sm sm:text-base">
+        <main className="p-6 lg:p-4 justify-center flex flex-1">
+            <div className="w-full max-w-7xl grid grid-cols-1 min-lg:grid-cols-[minmax(640px,1fr)_320px] gap-6 lg:gap-4 text-sm sm:text-base">
                 <div className="flex flex-col min-w-0 gap-4 sm:gap-6 p-4 rounded-lg outline-2 outline-border bg-background-light">
                     <section className="flex flex-col">
                         <h2 className="uppercase">The Board</h2>
@@ -198,27 +198,32 @@ const Main = () => {
                     </div>
                 </div>
                 <div className="flex flex-col gap-6 min-w-80">
-                    <InfoPanel generation={generation} liveCells={liveCells} />
-                    <div className="flex flex-col gap-4">
-                        <SecondaryButton
-                            label={isRunning ? 'Stop' : 'Start'}
-                            handleClick={handleIsRunning}
+                    <div className="flex gap-4 lg:flex-col">
+                        <InfoPanel
+                            generation={generation}
+                            liveCells={liveCells}
                         />
-                        <div className="flex gap-4">
-                            <PrimaryButton
-                                label="Step"
-                                handleClick={handleIsMovingByStep}
+                        <div className="flex flex-col gap-4 max-lg:max-w-1/2 w-full">
+                            <SecondaryButton
+                                label={isRunning ? 'Stop' : 'Start'}
+                                handleClick={handleIsRunning}
                             />
-                            <PrimaryButton
-                                label="Reset"
-                                handleClick={resetBoard}
-                            />
+                            <div className="flex gap-4">
+                                <PrimaryButton
+                                    label="Step"
+                                    handleClick={handleIsMovingByStep}
+                                />
+                                <PrimaryButton
+                                    label="Reset"
+                                    handleClick={resetBoard}
+                                />
+                            </div>
                         </div>
+                        <Slider
+                            generationsPerSecond={generationsPerSecond}
+                            setGenerationsPerSecond={setGenerationsPerSecond}
+                        />
                     </div>
-                    <Slider
-                        generationsPerSecond={generationsPerSecond}
-                        setGenerationsPerSecond={setGenerationsPerSecond}
-                    />
                     <StartingPatterns
                         patternId={patternId}
                         onSelect={loadPattern}

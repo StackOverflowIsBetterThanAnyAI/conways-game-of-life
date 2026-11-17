@@ -2,25 +2,36 @@ const Footer = () => {
     return (
         <footer className="mt-auto px-4 py-2 justify-center flex border-t-2 border-border">
             <div className="w-full max-w-7xl items-center justify-between flex text-sm text-pretty font-light">
-                <span>B3/S23 John H. Conway, 1970</span>
-                <section className="flex gap-4">
+                <span className="max-sm:hidden">
+                    B3/S23 John H. Conway, 1970
+                </span>
+                <section className="flex flex-wrap gap-x-4 gap-y-2">
                     <span>
                         <span aria-hidden="true" className="font-bold">
                             Space
                         </span>
                         <span aria-hidden="true"> to start / pause</span>
                     </span>
-                    <span aria-hidden="true" className="font-bold">
+                    <span
+                        aria-hidden="true"
+                        className="font-bold max-lg:hidden"
+                    >
                         ·
                     </span>
                     <span aria-hidden="true">➔ to go step by step</span>
-                    <span aria-hidden="true" className="font-bold">
+                    <span
+                        aria-hidden="true"
+                        className="font-bold max-lg:hidden"
+                    >
                         ·
                     </span>
                     <span aria-hidden="true" className="first-letter:font-bold">
                         R to reset
                     </span>
-                    <span aria-hidden="true" className="font-bold">
+                    <span
+                        aria-hidden="true"
+                        className="font-bold max-lg:hidden"
+                    >
                         ·
                     </span>
                     <span aria-hidden="true" className="first-letter:font-bold">

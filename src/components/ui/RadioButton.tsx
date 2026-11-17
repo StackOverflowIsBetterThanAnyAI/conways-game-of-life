@@ -32,7 +32,7 @@ const RadioButton = ({
     return (
         <label
             className={`flex cursor-pointer items-center justify-between gap-4 rounded-lg border px-4 py-3
-                has-focus-visible:outline-2 has-focus-visible:outline-alive
+                has-focus-visible:outline-2 has-focus-visible:outline-alive w-full 
                 ${isSelected ? 'border-alive bg-background-light' : 'border-border-light hover:border-text-muted'}`}
         >
             <input
@@ -57,9 +57,9 @@ const RadioButton = ({
                 <span className={isSelected ? 'text-alive' : 'text-text-muted'}>
                     <Icon />
                 </span>
-                <span className="flex flex-col">
+                <span className="flex flex-col gap-1">
                     <span className="font-medium text-text">{name}</span>
-                    <span className="text-sm">{info}</span>
+                    <span className="text-xs sm:text-sm">{info}</span>
                 </span>
             </span>
             {isSelected && (
