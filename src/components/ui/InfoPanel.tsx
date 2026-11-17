@@ -5,7 +5,7 @@ type InfoPanelProps = {
 
 const InfoPanel = ({ generation, liveCells }: InfoPanelProps) => {
     return (
-        <dl className="rounded-lg max-lg:max-w-1/2 w-full grid grid-cols-[1fr_2px_1fr] py-4 bg-background-light">
+        <dl className="rounded-lg w-full grid grid-cols-[1fr_2px_1fr] py-4 bg-background-light col-start-1 row-start-1 row-span-2">
             <div className="flex flex-col gap-4 px-4">
                 <dt className="uppercase text-sm sm:text-base">Generation</dt>
                 <dd

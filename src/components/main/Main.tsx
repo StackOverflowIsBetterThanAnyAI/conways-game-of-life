@@ -198,12 +198,12 @@ const Main = () => {
                     </div>
                 </div>
                 <div className="flex flex-col gap-6 min-w-80">
-                    <div className="flex gap-4 lg:flex-col">
+                    <div className="grid grid-cols-2 grid-rows-[1fr_1fr_auto] gap-4 lg:flex lg:flex-col">
                         <InfoPanel
                             generation={generation}
                             liveCells={liveCells}
                         />
-                        <div className="flex flex-col gap-4 max-lg:max-w-1/2 w-full">
+                        <div className="col-start-2 row-start-1 row-span-3 flex flex-col gap-4 w-full">
                             <SecondaryButton
                                 label={isRunning ? 'Stop' : 'Start'}
                                 handleClick={handleIsRunning}
