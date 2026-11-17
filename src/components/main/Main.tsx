@@ -123,7 +123,7 @@ const Main = () => {
             }),
         }))
         setGeneration((prev) => prev + 1)
-    }, [board])
+    }, [])
 
     useEffect(() => {
         if (!isRunning) {
@@ -136,7 +136,7 @@ const Main = () => {
         return () => {
             clearInterval(id)
         }
-    }, [interval, isRunning])
+    }, [gameTick, interval, isRunning])
 
     return (
         <main className="p-4 justify-center flex flex-1">
