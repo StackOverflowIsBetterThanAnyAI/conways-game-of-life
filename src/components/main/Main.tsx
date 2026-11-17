@@ -218,6 +218,11 @@ const Main = () => {
                                     handleClick={resetBoard}
                                 />
                             </div>
+                            <PrimaryButton
+                                className="lg:hidden"
+                                label="Clear board"
+                                handleClick={clearBoard}
+                            />
                         </div>
                         <Slider
                             generationsPerSecond={generationsPerSecond}
@@ -231,6 +236,7 @@ const Main = () => {
                     />
                     <RulePanel />
                     <PrimaryButton
+                        className="max-lg:hidden"
                         label="Clear board"
                         handleClick={clearBoard}
                     />
